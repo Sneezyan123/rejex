@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ukrainian]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+
+\geometry{a4paper, margin=2.5cm}
+
+\lstset{
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red},
+  breaklines=true,
+  frame=single,
+}
+
+\title{Regex}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Вступ}
+Програма реалізує спрощений варіант регулярних виразів з використанням скінченних автоматів. Реалізація базується на об'єктно-орієнтованому підході з використанням абстрактних класів.
+
+\section{Аналіз структури}
+Програма складається з:
+\begin{itemize}
+  \item Абстрактного класу \texttt{State} з методом \texttt{check\_self}
+  \item Конкретних класів станів:
+    \begin{itemize}
+      \item \texttt{StartState} та \texttt{TerminationState}
+      \item \texttt{DotState} - відповідає символу "." (будь-який символ)
+      \item \texttt{AsciiState} - відповідає конкретному символу
+      \item \texttt{StarState} - відповідає оператору "*"
+      \item \texttt{PlusState} - відповідає оператору "+"
+    \end{itemize}
+  \item Основного класу \texttt{RegexFSM} для обробки регулярних виразів
+\end{itemize}
+
+\section{Алгоритм роботи}
+\subsection{Парсинг виразу}
+При ініціалізації \texttt{RegexFSM} відбувається перетворення рядка regex в послідовність об'єктів-станів:
+\begin{itemize}
+  \item Звичайні символи → \texttt{AsciiState}
+  \item Символ "." → \texttt{DotState}
+  \item Оператори "*" та "+" модифікують попередній стан
+\end{itemize}
+
+\subsection{Перевірка рядка}
+Метод \texttt{check\_string} проходиться по стрічці і співставляє з автоматами:
+Для кожного типу стану використовується власна логіка перевірки
+
+
+
+
+\section{Висновок}
+Програма демонструє базові принципи роботи з регулярними виразами на рівні скінченних автоматів. Реалізація є простою, але робочою.
+\end{document}
